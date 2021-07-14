@@ -9,10 +9,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1      
+      
+      - uses: actions/checkout@v1              
       - name: Deploy to Staging
         env:
-          foobar: "Yes this worked"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          
         run: |
           deploymentTag=$(date +'v%Y.%m.%d.%H%M')
           git tag -a $deploymentTag -m "This is an automatic message. Deployment done to staging with id: $deploymentTag" 

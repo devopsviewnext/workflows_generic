@@ -9,11 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Deploy to Staging
-      with:
-        foobar: "Yes this worked"
-      run: |
-        echo "Deploy to Staging"
-        ls -la
-        echo "Foobar :: [$foobar]"
+      - uses: actions/checkout@v1      
+      - name: Deploy to Staging
+        env:
+          foobar: "Yes this worked"
+        run: |
+          echo "Deploy to Staging"
+          ls -la
+          echo "Foobar :: [$foobar]"

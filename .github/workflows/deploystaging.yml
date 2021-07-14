@@ -12,8 +12,11 @@ jobs:
       - uses: actions/checkout@v1                    
         with:
           token: ${{ secrets.GitHub_PAT }}
+            
       - name: Deploy to Staging          
         run: |
+          git config --global user.email "${{ github.event.commits[author].email }}"
+          git config --global user.name "${{ github.author }}"
           deploymentTag=$(date +'v%Y.%m.%d.%H%M')
           git tag -a $deploymentTag -m "This is an automatic message. Deployment done to staging with id: $deploymentTag" 
           git.exe push --tags --progress "origin" master:master

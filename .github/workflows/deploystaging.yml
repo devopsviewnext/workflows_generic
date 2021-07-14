@@ -13,7 +13,7 @@ jobs:
             
       - name: Deploy to Staging          
         run: |
-          git config --global user.email "${{ github.event.commits[author].email }}"
+          git config --global user.email "${{ github.event.commits["author"].email }}"
           git config --global user.name "${{ github.actor }}"
           deploymentTag=$(date +'v%Y.%m.%d.%H%M')
           git tag -a $deploymentTag -m "This is an automatic message. Deployment done to staging with id: $deploymentTag" 

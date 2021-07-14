@@ -1,0 +1,19 @@
+name: Deploy to Staging (Master)
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '!refs/tags/*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Deploy to Staging
+      with:
+        foobar: "Yes this worked"
+      run: |
+        echo "Deploy to Staging"
+        ls -la
+        echo "Foobar :: [$foobar]"

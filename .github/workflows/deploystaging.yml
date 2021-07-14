@@ -14,6 +14,7 @@ jobs:
         env:
           foobar: "Yes this worked"
         run: |
-          echo "Deploy to Staging"
-          ls -la
+          deploymentTag=$(date +'v%Y.%m.%d.%H%M')
+          git tag -a $deploymentTag -m "This is an automatic message. Deployment done to staging with id: $deploymentTag" 
+          git.exe push --tags --progress "origin" master:master
           echo "Foobar :: [$foobar]"

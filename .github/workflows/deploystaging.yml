@@ -13,8 +13,6 @@ jobs:
             
       - name: Deploy to Staging          
         run: |
-          echo "${{ fromJson(github).event.commits[1].email }}"
-          echo "${{ github.event.commits[1].email }}"          
           echo "${{ github.event.commits['author'].email }}"          
           echo "${{ github.event.commits.email }}"
           git config --global user.email "${{ github.event.commits[1].email }}"

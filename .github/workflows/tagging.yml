@@ -13,7 +13,8 @@ jobs:
         run: |
           deploymentTag=$(date +'v%Y.%m.%d.%H%M')
           echo "$deploymentTag"   
-          git config --global user.email "generic_action@github.com"
+          echo "$ {{ github.event.head_commit.author.email }}"
+          git config --global user.email  "generic_action@github.com"
           git config --global user.name "generic_action"
           git fetch
           git checkout -f --track -B staging remotes/origin/staging --

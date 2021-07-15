@@ -19,6 +19,6 @@ jobs:
           git config --global user.name "generic_action"
           git fetch
           git checkout -f -B staging --
-          git pull
+          git pull --progress -v --no-rebase --no-ff "origin"
           git tag -a $deploymentTag -m "Deployment done to staging with id: $deploymentTag" 
           git push --tags --set-upstream --progress "origin" staging:staging

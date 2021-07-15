@@ -21,4 +21,6 @@ jobs:
           git checkout -f -B staging --
           git pull --progress -v --no-rebase --no-ff "origin"
           git tag -a $deploymentTag -m "Deployment done to staging with id: $deploymentTag" 
+          echo "Tag creado: $deploymentTag"  
           git push --tags --set-upstream --progress "origin" staging:staging
+          echo "Push creado con el tag: $deploymentTag"  

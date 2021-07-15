@@ -1,17 +1,15 @@
-name: Deploy to Staging (Master)
+name: Tagging to Staging Branch
 on:
   push:
     branches:
-      - master
-    tags:
-      - '!refs/tags/*'
+      - staging
+      
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:      
-      - uses: actions/checkout@v2 
-          
-      - name: Deploy to Staging          
+      - uses: actions/checkout@v2           
+      - name: Tagging to Staging Branch        
         run: |
           deploymentTag=$(date +'v%Y.%m.%d.%H%M')
           echo "$deploymentTag"   

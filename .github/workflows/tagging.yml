@@ -5,8 +5,8 @@ on:
       - staging
 env:
   GITHUB_CONTEXT: ${{ toJson(github) }}
-  EMAIL: ${{ (github).event.pusher.email }}
-  EMAIL2: ${{ github.event.pusher.email }}
+  PUSHER_EMAIL: ${{ github.event.pusher.email }}
+  PUSHER_NAME: ${{ github.event.pusher.name }}
   
 jobs:
   build:
@@ -16,13 +16,11 @@ jobs:
       - name: Tagging to Staging Branch        
         run: |
           deploymentTag=$(date +'v%Y.%m.%d.%H%M')
-          echo "$deploymentTag"   
-          echo "github.event.pusher.email: $ {{ github.event.pusher.email }}"
-          echo "github.event.pusher.name: $ {{ github.event.pusher.name }}"          
-          echo "EMAIL: $EMAIL"
-          echo "EMAIL2: $EMAIL2"
-          git config --global user.email  "generic_action@github.com"
-          git config --global user.name "generic_action"
+          echo "$deploymentTag"       
+          echo "PUSHER_EMAIL: $PUSHER_EMAIL"
+          echo "PUSHER_NAME: $PUSHER_NAME"
+          git config --global user.email  "$PUSHER_EMAIL"
+          git config --global user.name "$PUSHER_NAME"
           git fetch
           git checkout -f --track -B staging remotes/origin/staging --
           git pull --progress -v --no-rebase --no-ff "origin"

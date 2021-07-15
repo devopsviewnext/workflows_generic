@@ -5,7 +5,8 @@ on:
       - staging
 env:
   GITHUB_CONTEXT: ${{ toJson(github) }}
-  EMAIL: ${{ toJson(github).event.pusher.email }}
+  EMAIL: ${{ fromJson(github).event.pusher.email }}
+  EMAIL2: ${{ github.event.pusher.email }}
   
 jobs:
   build:
@@ -16,10 +17,10 @@ jobs:
         run: |
           deploymentTag=$(date +'v%Y.%m.%d.%H%M')
           echo "$deploymentTag"   
-          echo "$ {{ github.event.pusher.email }}"
-          echo "$ {{ github.event.pusher.name }}"
-          echo "$GITHUB_CONTEXT"
-          echo "$EMAIL"
+          echo "github.event.pusher.email: $ {{ github.event.pusher.email }}"
+          echo "github.event.pusher.name: $ {{ github.event.pusher.name }}"          
+          echo "EMAIL: $EMAIL"
+          echo "EMAIL2: $EMAIL2"
           git config --global user.email  "generic_action@github.com"
           git config --global user.name "generic_action"
           git fetch
@@ -29,3 +30,4 @@ jobs:
           echo "Tag creado: $deploymentTag"  
           git push --tags --progress "origin" staging:staging
           echo "Push creado con el tag: $deploymentTag"  
+          echo "$GITHUB_CONTEXT"

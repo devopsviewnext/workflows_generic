@@ -9,14 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:      
-      - uses: actions/checkout@v1          
-            
+      - uses: actions/checkout@v2       
       - name: Deploy to Staging          
         run: |
-          echo "${{ github.event.commits['author'].email }}"          
-          echo "${{ github.event.commits.email }}"
-          git config --global user.email "${{ github.event.commits[1].email }}"
-          git config --global user.name "${{ github.actor }}"
           deploymentTag=$(date +'v%Y.%m.%d.%H%M')
           echo "$deploymentTag"
           git checkout -f master --

@@ -9,7 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:      
-      - uses: actions/checkout@v2       
+      - uses: actions/checkout@v2 
+        with:          
+          token: ${{ secrets.GitHub_PAT }}
+          
       - name: Deploy to Staging          
         run: |
           deploymentTag=$(date +'v%Y.%m.%d.%H%M')

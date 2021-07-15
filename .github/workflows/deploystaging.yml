@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:      
       - uses: actions/checkout@v2 
-        with:          
-          ref: staging
           
       - name: Deploy to Staging          
         run: |
@@ -19,6 +17,6 @@ jobs:
           echo "$deploymentTag"   
           git config --global user.email "generic_action@github.com"
           git config --global user.name "generic_action"
-          git checkout -f remotes/origin/staging --
+          git checkout -f -B staging remotes/origin/staging --
           git tag -a $deploymentTag -m "Deployment done to staging with id: $deploymentTag" 
           git push --tags --progress "origin" staging:staging

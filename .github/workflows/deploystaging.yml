@@ -18,9 +18,9 @@ jobs:
           git config --global user.email "generic_action@github.com"
           git config --global user.name "generic_action"
           git fetch
-          git checkout -f -B staging --
+          git checkout -f --track -B staging remotes/origin/staging --
           git pull --progress -v --no-rebase --no-ff "origin"
           git tag -a $deploymentTag -m "Deployment done to staging with id: $deploymentTag" 
           echo "Tag creado: $deploymentTag"  
-          git push --tags --set-upstream --progress "origin" staging:staging
+          git push --tags --progress "origin" staging:staging
           echo "Push creado con el tag: $deploymentTag"  

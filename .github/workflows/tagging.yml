@@ -16,9 +16,9 @@ jobs:
       - name: Tagging to Staging Branch        
         run: |
             deploymentTag=$(date +'v%Y.%m.%d.%H%M')
-            messageTag="Tag $deploymentTag created automatically due to the merge request to staging branch with details: \nCommit hash: ${{ github.sha }} \nUsername: ${{ github.event.pusher.name }}\n Email: ${{ github.event.pusher.email }} into  Deployment done to staging with id: $deploymentTag"
-            echo "Message Tag: $messageTag"
             echo "Tag Id: $deploymentTag"
+            messageTag="Tag $deploymentTag created automatically due to the merge request to staging branch with details: Commit hash: ${{ github.sha }} Username: ${{ github.event.pusher.name }} Email: ${{ github.event.pusher.email }}."
+            echo "Message Tag: $messageTag"            
             echo ""
             git config --global user.email "$PUSHER_EMAIL"
             git config --global user.name "$PUSHER_NAME"

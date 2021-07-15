@@ -15,17 +15,18 @@ jobs:
       - uses: actions/checkout@v2           
       - name: Tagging to Staging Branch        
         run: |
-          deploymentTag=$(date +'v%Y.%m.%d.%H%M')
-          echo "$deploymentTag"       
-          echo "PUSHER_EMAIL: $PUSHER_EMAIL"
-          echo "PUSHER_NAME: $PUSHER_NAME"
-          git config --global user.email  "$PUSHER_EMAIL"
-          git config --global user.name "$PUSHER_NAME"
-          git fetch
-          git checkout -f --track -B staging remotes/origin/staging --
-          git pull --progress -v --no-rebase --no-ff "origin"
-          git tag -a $deploymentTag -m "Deployment done to staging with id: $deploymentTag" 
-          echo "Tag creado: $deploymentTag"  
-          git push --tags --progress "origin" staging:staging
-          echo "Push creado con el tag: $deploymentTag"  
-          echo "$GITHUB_CONTEXT"
+            deploymentTag=$(date +'v%Y.%m.%d.%H%M')
+            echo "Tag: $deploymentTag"
+            echo ""
+            git config --global user.email "$PUSHER_EMAIL"
+            git config --global user.name "$PUSHER_NAME"
+            git fetch
+            git checkout -f --track -B staging remotes/origin/staging --
+            git pull --progress -v --no-rebase --no-ff "origin"
+            git tag -a $deploymentTag -m "Tag created automatically due to the merge request to staging branch with details: \nCommit hash: ${{ github.sha }} \nUsername: ${{ github.event.pusher.name }}\n Email: ${{ github.event.pusher.email }} into  Deployment done to staging with id: $deploymentTag" 
+            echo ""
+            echo "Tag created: $deploymentTag into staging branch"
+            echo ""
+            git push --tags --progress "origin" staging:staging
+            echo "Push created with tag: $deploymentTag"
+            echo "$GITHUB_CONTEXT"

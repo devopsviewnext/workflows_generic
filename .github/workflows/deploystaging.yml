@@ -19,4 +19,4 @@ jobs:
           git config --global user.name "generic_action"
           git checkout -f -B staging remotes/origin/staging --
           git tag -a $deploymentTag -m "Deployment done to staging with id: $deploymentTag" 
-          git push --tags --progress "origin" staging:staging
+          git push --tags --set-upstream --progress "origin" staging:staging

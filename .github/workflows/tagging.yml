@@ -17,14 +17,15 @@ jobs:
         run: |
             deploymentTag=$(date +'v%Y.%m.%d.%H%M')
             messageTag="Tag $deploymentTag created automatically due to the merge request to staging branch with details: \nCommit hash: ${{ github.sha }} \nUsername: ${{ github.event.pusher.name }}\n Email: ${{ github.event.pusher.email }} into  Deployment done to staging with id: $deploymentTag"
-            echo "Tag: $deploymentTag"
+            echo "Message Tag: $messageTag"
+            echo "Tag Id: $deploymentTag"
             echo ""
             git config --global user.email "$PUSHER_EMAIL"
             git config --global user.name "$PUSHER_NAME"
             git fetch
             git checkout -f --track -B staging remotes/origin/staging --
             git pull --progress -v --no-rebase --no-ff "origin"
-            git tag -a $deploymentTag -m "$messageTag"
+            git tag -a $deploymentTag -m '$messageTag'
             echo ""
             echo "Tag created: $deploymentTag into staging branch."
             echo ""

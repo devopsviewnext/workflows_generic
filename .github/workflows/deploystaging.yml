@@ -17,6 +17,8 @@ jobs:
           echo "$deploymentTag"   
           git config --global user.email "generic_action@github.com"
           git config --global user.name "generic_action"
+          git fetch
           git checkout -f -B staging --
+          git pull
           git tag -a $deploymentTag -m "Deployment done to staging with id: $deploymentTag" 
           git push --tags --set-upstream --progress "origin" staging:staging

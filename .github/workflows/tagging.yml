@@ -3,7 +3,11 @@ on:
   push:
     branches:
       - staging
-      
+env:
+  GITHUB_CONTEXT: ${{ toJson(github) }}
+  PUSHER_EMAIL: ${{ github.event.pusher.email }}
+  PUSHER_NAME: ${{ github.event.pusher.name }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,14 +15,20 @@ jobs:
       - uses: actions/checkout@v2           
       - name: Tagging to Staging Branch        
         run: |
-          deploymentTag=$(date +'v%Y.%m.%d.%H%M')
-          echo "$deploymentTag"   
-          git config --global user.email "generic_action@github.com"
-          git config --global user.name "generic_action"
-          git fetch
-          git checkout -f --track -B staging remotes/origin/staging --
-          git pull --progress -v --no-rebase --no-ff "origin"
-          git tag -a $deploymentTag -m "Deployment done to staging with id: $deploymentTag" 
-          echo "Tag creado: $deploymentTag"  
-          git push --tags --progress "origin" staging:staging
-          echo "Push creado con el tag: $deploymentTag"  
+            deploymentTag=$(date +'v%Y.%m.%d.%H%M')
+            echo "Tag Id: $deploymentTag"
+            messageTag="Tag $deploymentTag created automatically due to the merge request to staging branch with details: Commit hash: ${{ github.sha }} Username: ${{ github.event.pusher.name }} Email: ${{ github.event.pusher.email }}."
+            echo "Message Tag: $messageTag"            
+            echo ""
+            git config --global user.email "${{ github.event.pusher.email }}"
+            git config --global user.name "${{ github.event.pusher.name }}"
+            git fetch
+            git checkout -f --track -B staging remotes/origin/staging --
+            git pull --progress -v --no-rebase --no-ff "origin"
+            git tag -a $deploymentTag -m "$messageTag"
+            echo ""
+            echo "Tag created: $deploymentTag into staging branch."
+            echo ""
+            git push --tags --progress "origin" staging:staging
+            echo "Push created with tag: $deploymentTag"
+            echo "$GITHUB_CONTEXT"

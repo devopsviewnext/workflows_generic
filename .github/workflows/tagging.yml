@@ -23,7 +23,7 @@ jobs:
             git fetch
             git checkout -f --track -B staging remotes/origin/staging --
             git pull --progress -v --no-rebase --no-ff "origin"
-            git tag -a $deploymentTag -m "Tag $deploymentTag created automatically due to the merge request to staging branch with details: '\nCommit hash: ${{ github.sha }} \nUsername: ${{ github.event.pusher.name }}\n Email: ${{ github.event.pusher.email }} into  Deployment done to staging with id: $deploymentTag'" 
+            git tag -a $deploymentTag -m 'Tag $deploymentTag created automatically due to the merge request to staging branch with details: \nCommit hash: ${{ github.sha }} \nUsername: ${{ github.event.pusher.name }}\n Email: ${{ github.event.pusher.email }} into  Deployment done to staging with id: $deploymentTag' 
             echo ""
             echo "Tag created: $deploymentTag into staging branch"
             echo ""

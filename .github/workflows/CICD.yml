@@ -2,12 +2,9 @@ name: CICDJAVA
 
 on:  
   push:  
-    branches-ignore: [ develop, staging ]    
-
   pull_request:  
-    branches: [ develop, staging ]
-    types: [ closed ]
-
+  pull_request_review:
+  pull_request_review_comment:
   release:
     types: [ created ]
 

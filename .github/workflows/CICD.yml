@@ -8,8 +8,6 @@ on:
   release:
     types: [ created ]
 
-  workflow_dispatch:
-
 env:
   GITHUB_CONTEXT: ${{ toJson(github) }}
 
@@ -36,7 +34,7 @@ jobs:
     
   DeployPreproduction:
     name: Deploy to Preproduction 
-    needs: [DeployDev]
+    needs: [Build]
     if: github.event_name == 'pull_request' && github.ref == 'staging' && github.event.pull_request.merged
     runs-on: ubuntu-latest
     environment: 
@@ -49,7 +47,7 @@ jobs:
   DeployProduction:
     name: Deploy to Production 
     if: github.event_name == 'release'
-    needs: [DeployPreproduction]
+    needs: [Build]
     runs-on: ubuntu-latest
     environment: 
       name: Production

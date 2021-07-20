@@ -3,7 +3,7 @@ name: CICDJAVA
 on:  
   push:  
   pull_request:  
-    types:  [ closed ]
+    types:  [ opened, closed ]
 
   release:
     types: [ created ]
@@ -24,7 +24,7 @@ jobs:
     
   DeployDev:
     name: Deploy to Dev 
-    if: github.event_name == 'pull_request' && github.base_ref == 'develop'
+    if: github.event_name == 'pull_request' && github.ref == 'develop' && github.event.pull_request.merged
     needs: [Build]
     runs-on: ubuntu-latest
     environment: 
@@ -36,8 +36,8 @@ jobs:
     
   DeployPreproduction:
     name: Deploy to Preproduction 
-    needs: [Build]
-    if: github.event_name == 'pull_request' && github.base_ref == 'staging'
+    needs: [DeployDev]
+    if: github.event_name == 'pull_request' && github.ref == 'staging' && github.event.pull_request.merged
     runs-on: ubuntu-latest
     environment: 
       name: Preproduction
@@ -49,7 +49,7 @@ jobs:
   DeployProduction:
     name: Deploy to Production 
     if: github.event_name == 'release'
-    needs: [Build]
+    needs: [DeployPreproduction]
     runs-on: ubuntu-latest
     environment: 
       name: Production

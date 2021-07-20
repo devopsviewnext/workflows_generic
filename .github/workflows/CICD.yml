@@ -2,11 +2,9 @@ name: CICDJAVA
 
 on:  
   push:  
-    branches-ignore: [ develop, staging ]    
-
   pull_request:  
-    branches: [ develop, staging ]
-
+  pull_request_review:
+  pull_request_review_comment:
   release:
     types: [ created ]
 
@@ -34,7 +32,7 @@ jobs:
       url: 'http://someweb.com'
     steps:
       - name: Deploy
-        run: echo Deploying Dev....   
+        run: echo Deploying Dev.....   
     
   DeployPreproduction:
     name: Deploy to Preproduction 
@@ -59,5 +57,3 @@ jobs:
     steps:
       - name: Deploy
         run: echo I am deploying! 
-    env:
-        CI: true

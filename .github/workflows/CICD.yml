@@ -8,8 +8,6 @@ on:
   release:
     types: [ created ]
 
-  workflow_dispatch:
-
 env:
   GITHUB_CONTEXT: ${{ toJson(github) }}
 
@@ -49,7 +47,7 @@ jobs:
   DeployProduction:
     name: Deploy to Production 
     if: github.event_name == 'release'
-    needs: [DeployPreproduction]
+    needs: [Build]
     runs-on: ubuntu-latest
     environment: 
       name: Production

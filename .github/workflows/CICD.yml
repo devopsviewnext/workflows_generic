@@ -3,28 +3,8 @@ name: CICDJAVA
 on:  
   push:  
   pull_request:  
-    types: 
-      - assigned
-      - unassigned
-      - labeled
-      - unlabeled
-      - opened
-      - edited
-      - closed
-      - reopened
-      - synchronize
-      - converted_to_draft
-      - ready_for_review
-      - locked
-      - unlocked
-      - review_requested
-      - review_request_removed
-      - auto_merge_enabled
-      - auto_merge_disabled
-  pull_request_review:
-    types: [edited, submitted, dismissed]
-  pull_request_review_comment: 
-    types: [created, edited, deleted]
+    types:  [ closed ]
+
   release:
     types: [ created ]
 
@@ -40,7 +20,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Compile
-        run: echo ${{ github.release.target_commitish }} ${{ github.event_name }} - ${{ github.base_ref }} - ${{ github.ref }} - ${{ github.event.pull_request.merged }} - ${{ github.event.action }} $GITHUB_CONTEXT - Compile Step..
+        run: echo github.release.target_commitish:${{ github.release.target_commitish }} github.event_name:${{ github.event_name }} - github.base_ref:${{ github.base_ref }} - github.ref:${{ github.ref }} - github.event.pull_request.merged:${{ github.event.pull_request.merged }} - github.event.action:${{ github.event.action }} $GITHUB_CONTEXT - Compile Step..
     
   DeployDev:
     name: Deploy to Dev 

@@ -3,8 +3,28 @@ name: CICDJAVA
 on:  
   push:  
   pull_request:  
+    types: 
+      - assigned
+      - unassigned
+      - labeled
+      - unlabeled
+      - opened
+      - edited
+      - closed
+      - reopened
+      - synchronize
+      - converted_to_draft
+      - ready_for_review
+      - locked
+      - unlocked
+      - review_requested
+      - review_request_removed
+      - auto_merge_enabled
+      - auto_merge_disabled
   pull_request_review:
-  pull_request_review_comment:
+    types: [edited, submitted, dismissed]
+  pull_request_review_comment: 
+    types: [created, edited, deleted]
   release:
     types: [ created ]
 
@@ -32,7 +52,7 @@ jobs:
       url: 'http://someweb.com'
     steps:
       - name: Deploy
-        run: echo Deploying Dev.....   
+        run: echo Deploying Dev....   
     
   DeployPreproduction:
     name: Deploy to Preproduction 
